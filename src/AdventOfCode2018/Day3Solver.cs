@@ -8,6 +8,7 @@ namespace AdventOfCode2018
     public class Day3Solver
     {
         private static readonly string ClaimPattern = @"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)";
+        private static readonly Cloth cloth = new Cloth(1000, 1000);
         public Claim? Parse(string s)
         {
             var match = Regex.Match(s, ClaimPattern);
@@ -24,7 +25,35 @@ namespace AdventOfCode2018
                 return null;
             }
         }
-        public HashSet<string>[,] Place(Claim c, HashSet<String>[,] map) 
+        public int SolvePart1For(string[] input)
+        {
+            foreach (var i in input)
+            {
+                Claim? c = Parse(i);
+                if (c.HasValue)
+                {
+                    cloth.Place(c.Value);
+                }                
+            }
+            return cloth.GetOverlap();
+        }
+        public string SolvePart2For(string[] input)
+        {
+            return "";
+        }
+    } 
+    public class Cloth
+    {
+        private HashSet<string>[,]  map;
+        public HashSet<string>[,]  Map
+        {
+            get { return map; }
+        }
+        public Cloth(int width, int height)
+        {
+            map = new HashSet<string>[width, height];
+        }
+        public void Place(Claim c) 
         {
             for (var i = c.origin.x; i < c.origin.x + c.area.width; ++i) 
             {
@@ -37,9 +66,8 @@ namespace AdventOfCode2018
                     map[i,j].Add(c.id);
                 }
             }
-            return map;
         }
-        public int ClaimedArea(HashSet<string>[,] map)
+        public int GetCoveredArea()
         {
             var area = 0;
             for (var i = 0; i < map.GetLength(0); ++i) 
@@ -54,7 +82,7 @@ namespace AdventOfCode2018
             }
             return area;
         }
-        public int DisputedArea(HashSet<string>[,] map)
+        public int GetOverlap()
         {
             var area = 0;
             for (var i = 0; i < map.GetLength(0); ++i) 
@@ -88,32 +116,6 @@ namespace AdventOfCode2018
                 }
             }
             return id;
-        }
-        public int SolvePart1For(string[] input)
-        {
-            var map = new HashSet<string>[1000,1000];
-            foreach (var i in input)
-            {
-                Claim? c = Parse(i);
-                if (c.HasValue)
-                {
-                    Place(c.Value, map);
-                }                
-            }
-            return DisputedArea(map);
-        }
-        public string SolvePart2For(string[] input)
-        {
-            var map = new HashSet<string>[1000,1000];
-            foreach (var i in input)
-            {
-                Claim? c = Parse(i);
-                if (c.HasValue)
-                {
-                    Place(c.Value, map);
-                }                
-            }
-            return FindNonOverlappingClaim(map);
         }
     }
     public struct Claim{

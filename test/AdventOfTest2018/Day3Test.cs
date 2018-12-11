@@ -7,22 +7,11 @@ using AdventOfCode2018;
 
 namespace AdventOfTest2018
 {
-    public class Day3Test 
+    public class ClothTest
     {
-        private readonly Day3Solver day3 = new Day3Solver();
-
-        [Fact]
-        public void ItCanParseClaims()
-        {
-            Claim expected = new Claim("123", new Point(3, 2), new Area(4, 4));
-
-            Assert.Equal(expected, day3.Parse("#123 @ 3,2: 4x4"));
-        }
-
         [Fact]
         public void ItCanPlaceClaimsOnTheMap()
         {
-            
             var map = new HashSet<string>[8,8];
 
             map[1,3] = new HashSet<string> { "1" };
@@ -44,13 +33,15 @@ namespace AdventOfTest2018
 
             Claim c = new Claim("1", new Point(1, 3), new Area(4, 4));
 
-            Assert.Equal(map, day3.Place(c, new HashSet<string>[8,8]));
-        }
+            Cloth cloth = new Cloth(8, 8);
 
+            cloth.Place(c);
+
+            Assert.Equal(map, cloth.Map);
+        }
         [Fact]
         public void ItCanPlaceMultipleClaimsOnTheMap()
-        {
-            
+        {           
             var map = new HashSet<string>[4,4];
 
             map[1, 1] = new HashSet<string> { "1" };
@@ -68,15 +59,14 @@ namespace AdventOfTest2018
             Claim d = new Claim("2", new Point(2, 2), new Area(2, 2));
             Claim e = new Claim("3", new Point(1, 2), new Area(2, 2));
 
-            var result = new HashSet<string>[4,4];
+            var cloth = new Cloth(4,4);
 
-            day3.Place(c, result);
-            day3.Place(d, result);
-            day3.Place(e, result);
+            cloth.Place(c);
+            cloth.Place(d);
+            cloth.Place(e);
 
-            Assert.Equal(map, result);
+            Assert.Equal(map, cloth.Map);
         }
-
         [Fact]
         public void ItCountsTheArea() 
         {
@@ -84,29 +74,39 @@ namespace AdventOfTest2018
             Claim d = new Claim("2", new Point(2, 2), new Area(2, 2));
             Claim e = new Claim("3", new Point(1, 2), new Area(2, 2));
 
-            var result = new HashSet<string>[4,4];
+            var cloth = new Cloth(4,4);
 
-            day3.Place(c, result);
-            day3.Place(d, result);
-            day3.Place(e, result);
+            cloth.Place(c);
+            cloth.Place(d);
+            cloth.Place(e);
 
-            Assert.Equal(8, day3.ClaimedArea(result));
+            Assert.Equal(8, cloth.GetCoveredArea());
         }
-
         [Fact]
-        public void ItCountsTheDisputedArea() 
+        public void ItCountsTheOverlapArea() 
         {
             Claim c = new Claim("1", new Point(1, 1), new Area(2, 2));
             Claim d = new Claim("2", new Point(2, 2), new Area(2, 2));
             Claim e = new Claim("3", new Point(1, 2), new Area(2, 2));
 
-            var result = new HashSet<string>[4,4];
+            var cloth = new Cloth(4,4);
 
-            day3.Place(c, result);
-            day3.Place(d, result);
-            day3.Place(e, result);
+            cloth.Place(c);
+            cloth.Place(d);
+            cloth.Place(e);
 
-            Assert.Equal(3, day3.DisputedArea(result));
+            Assert.Equal(3, cloth.GetOverlap());
+        }
+    }
+    public class Day3Test 
+    {
+        private readonly Day3Solver day3 = new Day3Solver();
+        [Fact]
+        public void ItCanParseClaims()
+        {
+            Claim expected = new Claim("123", new Point(3, 2), new Area(4, 4));
+
+            Assert.Equal(expected, day3.Parse("#123 @ 3,2: 4x4"));
         }
     }
 }
