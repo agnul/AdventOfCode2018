@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "src\\AdventOfCode2018"
+		},
+		{
+			"path": "test\\AdventOfTest2018"
+		}
+	],
+	"settings": {}
+}
