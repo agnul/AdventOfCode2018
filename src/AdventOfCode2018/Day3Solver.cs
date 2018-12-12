@@ -8,7 +8,7 @@ namespace AdventOfCode2018
     public class Day3Solver
     {
         private static readonly string ClaimPattern = @"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)";
-        private static readonly Cloth cloth = new Cloth(1000, 1000);
+        private static readonly Cloth Cloth = new Cloth(1000, 1000);
         public Claim? Parse(string s)
         {
             var match = Regex.Match(s, ClaimPattern);
@@ -20,22 +20,19 @@ namespace AdventOfCode2018
                     new Area(int.Parse(match.Groups[4].Value), int.Parse(match.Groups[5].Value))
                 );
             }
-            else 
-            {
-                return null;
-            }
+            return null;
         }
         public int SolvePart1For(string[] input)
         {
             foreach (var i in input)
             {
-                Claim? c = Parse(i);
+                var c = Parse(i);
                 if (c.HasValue)
                 {
-                    cloth.Place(c.Value);
+                    Cloth.Place(c.Value);
                 }                
             }
-            return cloth.GetOverlap();
+            return Cloth.GetOverlap();
         }
         public string SolvePart2For(string[] input)
         {
@@ -45,25 +42,23 @@ namespace AdventOfCode2018
     public class Cloth
     {
         private HashSet<string>[,]  map;
-        public HashSet<string>[,]  Map
-        {
-            get { return map; }
-        }
+        public HashSet<string>[,]  Map => map;
+
         public Cloth(int width, int height)
         {
             map = new HashSet<string>[width, height];
         }
         public void Place(Claim c) 
         {
-            for (var i = c.origin.x; i < c.origin.x + c.area.width; ++i) 
+            for (var i = c.Origin.X; i < c.Origin.X + c.Area.Width; ++i) 
             {
-                for (var j = c.origin.y; j < c.origin.y + c.area.height; ++j)
+                for (var j = c.Origin.Y; j < c.Origin.Y + c.Area.Height; ++j)
                 {
                     if (map[i,j] == null)
                     {
                         map[i,j] = new HashSet<string>();
                     }
-                    map[i,j].Add(c.id);
+                    map[i,j].Add(c.Id);
                 }
             }
         }
@@ -97,9 +92,9 @@ namespace AdventOfCode2018
             }
             return area;
         }
-        public string FindNonOverlappingClaim(HashSet<string>[,] map)
+        public string FindNonOverlappingClaim()
         {
-            String id = "";
+            var id = "";
             for (var i = 0; i < map.GetLength(0); ++i) 
             {
                 for (var j = 0; j < map.GetLength(1); ++j) 
@@ -119,40 +114,40 @@ namespace AdventOfCode2018
         }
     }
     public struct Claim{
-        public string id;
+        public string Id;
 
-        public Point origin;
+        public Point Origin;
 
-        public Area area;
+        public Area Area;
 
         public Claim(string id, Point origin, Area area)
         {
-            this.id = id;
-            this.origin = origin;
-            this.area = area;
+            Id = id;
+            Origin = origin;
+            Area = area;
         }
     }
     public struct Point
     {
-        public int x;
-        public int y;
+        public int X;
+        public int Y;
 
         public Point(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            X = x;
+            Y = y;
         }
     }
     public struct Area
     {
-        public int width;
+        public int Width;
 
-        public int height;
+        public int Height;
 
         public Area(int width, int height)
         {
-            this.width = width;
-            this.height = height;
+            Width = width;
+            Height = height;
         }
     }
 }

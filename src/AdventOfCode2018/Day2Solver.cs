@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AdventOfCode2018
 {
     public class Day2Solver 
     {
-        public Repetitions CountRepetitions(String s)
+        public Repetitions CountRepetitions(string s)
         {
             char? two = null;
             char? three = null;
@@ -26,18 +24,15 @@ namespace AdventOfCode2018
             {
                 return Repetitions.TwoAndThree;
             }
-            else if (three != null) 
+            if (three != null) 
             {
                 return Repetitions.Three;
             }
-            else if (two != null)
+            if (two != null)
             {
                 return Repetitions.Two;
             }
-            else 
-            {
-                return Repetitions.None;
-            }
+            return Repetitions.None;
         }
 
         public int SolvePart1For(string[] input)
@@ -81,7 +76,7 @@ namespace AdventOfCode2018
 
         public string CommonLetters(string s, string t) 
         {
-            char[] res = new char[s.Length - 1];
+            var res = new char[s.Length - 1];
             var i = 0;
             while (i < s.Length && s[i] == t[i]) {
                 res[i] = s[i];
@@ -97,9 +92,9 @@ namespace AdventOfCode2018
 
         public string SolvePart2For(string[] input)
         {
-            for (int i = 0; i < input.Length - 1; ++i) 
+            for (var i = 0; i < input.Length - 1; ++i) 
             {
-                for (int j = i + 1; j < input.Length; ++j) 
+                for (var j = i + 1; j < input.Length; ++j) 
                 {
                     if (IdsAreGood(input[i], input[j]))
                     {

@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace AdventOfCode2018
         }
         public List<int> ParseInput(string[] input)
         {
-            List<int> result = new List<int>();
+            var result = new List<int>();
             foreach (var s in input) 
             {
                 result.Add(int.Parse(s));
@@ -22,7 +21,7 @@ namespace AdventOfCode2018
         public int SolvePart2For(List<int> input) {
             
             var sum = 0;
-            var sums = new HashSet<int>() { 0 };
+            var sums = new HashSet<int> { 0 };
 
             foreach (var i in InputLoop(input)) 
             {
@@ -30,10 +29,8 @@ namespace AdventOfCode2018
                 if (sums.Contains(sum)) 
                 {
                     return sum;
-                } else 
-                {
-                    sums.Add(sum);
-                }
+                } 
+                sums.Add(sum);
             }
             return -1;
         }

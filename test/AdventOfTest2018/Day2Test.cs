@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 using Xunit;
 
 using AdventOfCode2018;
@@ -38,7 +35,7 @@ namespace AdventOfTest2018
         [Fact]
         public void ItSolvesPart1ForTheExample() 
         {
-            Assert.Equal(12, day2.SolvePart1For(new string[] {
+            Assert.Equal(12, day2.SolvePart1For(new [] {
                 "abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab"
             }));
         }
@@ -56,7 +53,7 @@ namespace AdventOfTest2018
         }
 
         [Fact]
-        public void TwoIdsAreNotGOodIfTheyDiffereByMoreThanOneLetter()
+        public void TwoIdsAreNotGOodIfTheyDifferByMoreThanOneLetter()
         {
             Assert.Equal(false, day2.IdsAreGood("abcde", "axcye"));
         }
@@ -70,7 +67,7 @@ namespace AdventOfTest2018
         [Fact]
         public void ItFindsTheGoodIds()
         {
-            Assert.Equal("fgij", day2.SolvePart2For(new string[] {
+            Assert.Equal("fgij", day2.SolvePart2For(new [] {
                 "abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"
             }));
         }

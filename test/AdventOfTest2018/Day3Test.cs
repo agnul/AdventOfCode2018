@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using Xunit;
@@ -31,9 +30,9 @@ namespace AdventOfTest2018
             map[4,5] = new HashSet<string> { "1" };
             map[4,6] = new HashSet<string> { "1" };
 
-            Claim c = new Claim("1", new Point(1, 3), new Area(4, 4));
+            var c = new Claim("1", new Point(1, 3), new Area(4, 4));
 
-            Cloth cloth = new Cloth(8, 8);
+            var cloth = new Cloth(8, 8);
 
             cloth.Place(c);
 
@@ -55,9 +54,9 @@ namespace AdventOfTest2018
 
             map[1, 3] = new HashSet<string> { "3" };
 
-            Claim c = new Claim("1", new Point(1, 1), new Area(2, 2));
-            Claim d = new Claim("2", new Point(2, 2), new Area(2, 2));
-            Claim e = new Claim("3", new Point(1, 2), new Area(2, 2));
+            var c = new Claim("1", new Point(1, 1), new Area(2, 2));
+            var d = new Claim("2", new Point(2, 2), new Area(2, 2));
+            var e = new Claim("3", new Point(1, 2), new Area(2, 2));
 
             var cloth = new Cloth(4,4);
 
@@ -70,9 +69,9 @@ namespace AdventOfTest2018
         [Fact]
         public void ItCountsTheArea() 
         {
-            Claim c = new Claim("1", new Point(1, 1), new Area(2, 2));
-            Claim d = new Claim("2", new Point(2, 2), new Area(2, 2));
-            Claim e = new Claim("3", new Point(1, 2), new Area(2, 2));
+            var c = new Claim("1", new Point(1, 1), new Area(2, 2));
+            var d = new Claim("2", new Point(2, 2), new Area(2, 2));
+            var e = new Claim("3", new Point(1, 2), new Area(2, 2));
 
             var cloth = new Cloth(4,4);
 
@@ -85,9 +84,9 @@ namespace AdventOfTest2018
         [Fact]
         public void ItCountsTheOverlapArea() 
         {
-            Claim c = new Claim("1", new Point(1, 1), new Area(2, 2));
-            Claim d = new Claim("2", new Point(2, 2), new Area(2, 2));
-            Claim e = new Claim("3", new Point(1, 2), new Area(2, 2));
+            var c = new Claim("1", new Point(1, 1), new Area(2, 2));
+            var d = new Claim("2", new Point(2, 2), new Area(2, 2));
+            var e = new Claim("3", new Point(1, 2), new Area(2, 2));
 
             var cloth = new Cloth(4,4);
 
@@ -100,13 +99,13 @@ namespace AdventOfTest2018
     }
     public class Day3Test 
     {
-        private readonly Day3Solver day3 = new Day3Solver();
+        private readonly Day3Solver _day3 = new Day3Solver();
         [Fact]
         public void ItCanParseClaims()
         {
-            Claim expected = new Claim("123", new Point(3, 2), new Area(4, 4));
+            var expected = new Claim("123", new Point(3, 2), new Area(4, 4));
 
-            Assert.Equal(expected, day3.Parse("#123 @ 3,2: 4x4"));
+            Assert.Equal(expected, _day3.Parse("#123 @ 3,2: 4x4"));
         }
     }
 }
