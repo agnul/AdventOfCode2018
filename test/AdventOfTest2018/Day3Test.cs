@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using System.Net.WebSockets;
 using Xunit;
 
 using AdventOfCode2018;
@@ -95,6 +95,26 @@ namespace AdventOfTest2018
             cloth.Place(e);
 
             Assert.Equal(3, cloth.GetOverlap());
+        }
+
+        [Fact]
+        public void ItCanCheckForOverlaps()
+        {
+            var cloth = new Cloth(4, 4);
+            
+            var c = new Claim("1", new Point(1, 1), new Area(2, 2));
+            var d = new Claim("2", new Point(2, 2), new Area(2, 2));
+            var e = new Claim("3", new Point(1, 2), new Area(2, 2));
+            var f = new Claim("4", new Point(0, 0), new Area(1, 1));
+
+            cloth.Place(c);
+            cloth.Place(d);
+            cloth.Place(e);
+            
+            Assert.True(cloth.ClaimOverlaps(c));
+            Assert.True(cloth.ClaimOverlaps(d));
+            Assert.True(cloth.ClaimOverlaps(e));
+            Assert.False(cloth.ClaimOverlaps(f));
         }
     }
     public class Day3Test 

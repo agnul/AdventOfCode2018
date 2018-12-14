@@ -9,6 +9,22 @@ namespace AdventOfCode2018
     {
         private static readonly string ClaimPattern = @"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)";
         private static readonly Cloth Cloth = new Cloth(1000, 1000);
+
+        private List<Claim> _claims;
+        
+        private void _init(string[] input)
+        {
+            _claims = new List<Claim>();
+            foreach (var i in input)
+            {
+                Claim? c = Parse(i);
+                if (c.HasValue)
+                {
+                    _claims.Add(c.Value);
+                }
+            }
+        }
+
         public Claim? Parse(string s)
         {
             var match = Regex.Match(s, ClaimPattern);
@@ -22,20 +38,27 @@ namespace AdventOfCode2018
             }
             return null;
         }
+
         public int SolvePart1For(string[] input)
         {
-            foreach (var i in input)
+            _init(input);
+            foreach (var c in _claims)
             {
-                var c = Parse(i);
-                if (c.HasValue)
-                {
-                    Cloth.Place(c.Value);
-                }                
+                Cloth.Place(c);
             }
             return Cloth.GetOverlap();
         }
+
         public string SolvePart2For(string[] input)
         {
+            foreach (var c in _claims)
+            {
+                if (!Cloth.ClaimOverlaps(c))
+                {
+                    return c.Id;
+                }
+            }
+
             return "";
         }
     } 
@@ -92,25 +115,19 @@ namespace AdventOfCode2018
             }
             return area;
         }
-        public string FindNonOverlappingClaim()
+
+        public bool ClaimOverlaps(Claim c)
         {
-            var id = "";
-            for (var i = 0; i < map.GetLength(0); ++i) 
+            var overlaps = false;
+            for (var i = c.Origin.X; i < c.Origin.X + c.Area.Width; ++i) 
             {
-                for (var j = 0; j < map.GetLength(1); ++j) 
+                for (var j = c.Origin.Y; j < c.Origin.Y + c.Area.Height; ++j)
                 {
-                    if (map[i,j] != null && map[i,j].Count == 1)
-                    {
-                        id = map[i,j].First();
-                        foreach (var s in map[i,j])
-                        {
-                            Console.Write($"{s}, ");
-                        }
-                        Console.WriteLine();
-                    }
+                    overlaps = overlaps || map[i, j].Count > 1;
                 }
             }
-            return id;
+
+            return overlaps;
         }
     }
     public struct Claim{
