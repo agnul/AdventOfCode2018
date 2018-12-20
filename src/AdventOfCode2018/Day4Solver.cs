@@ -43,7 +43,7 @@ namespace AdventOfCode2018
 
     public abstract class Event
     {
-        public string EventDate {  get => _eventDate; }
+        public string EventDate => _eventDate;
 
         protected readonly string _eventDate;
 
@@ -84,7 +84,7 @@ namespace AdventOfCode2018
     {
         private readonly int _id;
 
-        public int ID { get => _id; }
+        public int ID => _id;
 
         protected internal ShiftStartEvent(string date, int id) : base(date) { 
             _id = id;
@@ -92,7 +92,7 @@ namespace AdventOfCode2018
 
         public override bool Equals(object obj)
         {
-            if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
+            if (obj == null || ! (GetType() == obj.GetType()))
             {
                 return false;
             }
@@ -120,7 +120,7 @@ namespace AdventOfCode2018
 
         public override bool Equals(object obj)
         {
-            if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
+            if ((obj == null) || ! GetType().Equals(obj.GetType()))
             {
                 return false;
             }
@@ -148,7 +148,7 @@ namespace AdventOfCode2018
 
         public override bool Equals(object obj)
         {
-            if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
+            if ((obj == null) || ! GetType().Equals(obj.GetType()))
             {
                 return false;
             }
@@ -172,24 +172,24 @@ namespace AdventOfCode2018
 
     public class Guard
     {
-        private readonly int _ID;
+        private readonly int _id;
 
-        public int ID { get => _ID; }
+        public int ID => _id;
 
         public Guard(int id)
         {
-            _ID = id;
+            _id = id;
         }
  
         public override bool Equals(object obj)
         {
-            if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
+            if ((obj == null) || ! GetType().Equals(obj.GetType()))
             {
                 return false;
             }
 
             Guard g = (Guard) obj;
-            return _ID.Equals(g._ID);
+            return _id == g._id;
         }
 
         public override int GetHashCode()
@@ -198,7 +198,7 @@ namespace AdventOfCode2018
             {
                 int hash = 17;
                 
-                hash = hash * 23 + _ID.GetHashCode();
+                hash = hash * 23 + _id.GetHashCode();
 
                 return hash;
             }
@@ -207,13 +207,13 @@ namespace AdventOfCode2018
 
     public class DutyRoster
     {
-        public Guard GuardOnDuty { get => _roster[_onDuty]; }
+        public Guard GuardOnDuty => _roster[_onDuty];
 
         private Dictionary<int, Guard> _roster = new Dictionary<int, Guard>();
 
         private int _onDuty;
 
-        public void onEvent(ShiftStartEvent e)
+        public void OnEvent(ShiftStartEvent e)
         {
             _onDuty = e.ID;
 

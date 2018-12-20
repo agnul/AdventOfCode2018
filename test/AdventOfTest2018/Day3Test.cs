@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net.WebSockets;
 using Xunit;
 
 using AdventOfCode2018;
