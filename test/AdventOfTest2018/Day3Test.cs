@@ -109,6 +109,7 @@ namespace AdventOfTest2018
             cloth.Place(c);
             cloth.Place(d);
             cloth.Place(e);
+            cloth.Place(f);
             
             Assert.True(cloth.ClaimOverlaps(c));
             Assert.True(cloth.ClaimOverlaps(d));
