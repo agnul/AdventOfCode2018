@@ -8,6 +8,7 @@ namespace AdventOfCode2018
         private static readonly Day1Solver Day1 = new Day1Solver();
         private static readonly Day2Solver Day2 = new Day2Solver();
         private static readonly Day3Solver Day3 = new Day3Solver();
+        private static readonly Day7Solver Day7 = new Day7Solver();
 
         public static void Main(string[] args)
         {
@@ -44,6 +45,12 @@ namespace AdventOfCode2018
             Console.WriteLine("Day 5 Solutions:");
             Console.WriteLine($"  part 1: {result9}");
             Console.WriteLine($"  part 2: {result10}");
+
+            var day7Input = File.ReadAllLines("data/day7.txt");
+            var result13 = Day7.SolvePart1For(day7Input);
+
+            Console.WriteLine("Day 7 Solutions:");
+            Console.WriteLine($"  part 1: {result13}");
         }
     }
 }
