@@ -36,6 +36,14 @@ namespace AdventOfCode2018
             Console.WriteLine("Day 3 Solutions:");
             Console.WriteLine($"  part 1: {result5}");
             Console.WriteLine($"  part 2: {result6}");
+
+            var day5Input = File.ReadAllLines("data/day5.txt");
+            var result9 = Day5Solver.SolvePart1For(day5Input[0]);
+            var result10 = Day5Solver.SolvePart2For(day5Input[0]);
+
+            Console.WriteLine("Day 5 Solutions:");
+            Console.WriteLine($"  part 1: {result9}");
+            Console.WriteLine($"  part 2: {result10}");
         }
     }
 }
