@@ -422,3 +422,6 @@ fabric.properties
 .history
 
 # End of https://www.gitignore.io/api/rider,csharp,visualstudiocode
+
+# Don't commit input files
+**/*.txt
